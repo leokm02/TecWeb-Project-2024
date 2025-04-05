@@ -2,7 +2,10 @@ import { User, Quiz } from "../models/Database.js";
 import Jwt from "jsonwebtoken";
 
 export class AuthController {
-
+/**
+   * @param {http.IncomingMessage} request
+   * @param {http.ServerResponse} response
+   */
   static async checkCredentials(req, res){
     let user = new User({
       userName: req.body.usr, 

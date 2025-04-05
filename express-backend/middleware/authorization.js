@@ -1,9 +1,5 @@
 import { AuthController } from "../controllers/AuthController.js";
 
-/**
- * This middleware ensures that the user is currently authenticated. If not,
- * redirects to login with an error message.
- */
 export function enforceAuthentication(req, res, next){
   const authHeader = req.headers['authorization']
   const token = authHeader?.split(' ')[1];

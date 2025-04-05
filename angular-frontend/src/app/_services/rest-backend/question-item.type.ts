@@ -1,11 +1,11 @@
 export interface QuestionItem {
   id?: number; 
-  quizId: number; 
+  quizId?: number; 
   question: string; 
   type: "open-ended" | "multiple-choice";
   createdAt?: Date; 
   updatedAt?: Date;
-  answers?: { //Nel caso di multiple-choice
+  multipleAnswers?: { //Nel caso di multiple-choice
     answer1: string;
     answer2: string;
     answer3: string;

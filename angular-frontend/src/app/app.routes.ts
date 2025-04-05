@@ -4,7 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProfileComponent } from './profile/profile.component';
 import { LogoutComponent } from './logout/logout.component';
-import { OwnQuizzesComponent } from './own-quizzes/own-quizzes.component';
+import { OwnQuizzesComponent } from './profile/own-quizzes/own-quizzes.component';
 import { OwnQuizDetailComponent } from './own-quiz-detail/own-quiz-detail.component';
 import { PlayComponent } from './play/play.component';
 import { PlayQuizComponent } from './play-quiz/play-quiz.component';

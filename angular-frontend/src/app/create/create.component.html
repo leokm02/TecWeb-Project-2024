@@ -1,1 +1,114 @@
-<p>create works!</p>
+<div>
+  <div class="container mx-auto py-8">
+    <h1 class="text-5xl font-bold my-4 text-white">Create Quiz</h1>
+    <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
+      <div class="col-span-4 sm:col-span-8">
+        <div class="bg-white shadow rounded-lg p-6">
+          <form
+            class="space-y-4 md:space-y-6"
+            [formGroup]="quizForm"
+            (ngSubmit)="handleCreate()"
+          >
+            <div>
+              <label
+                for="title"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Title</label
+              >
+              <input
+                type="text"
+                formControlName="title"
+                id="title"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                placeholder="Your Quiz Title"
+                required=""
+              />
+              @if(submitted && quizForm.controls.title.errors){
+              @if(quizForm.controls.title.errors['required']){
+              <p class="form-error">Title is required.</p>
+              } }
+            </div>
+            <div>
+              <label
+                for="description"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Description</label
+              >
+              <input
+                type="description"
+                formControlName="description"
+                id="description"
+                placeholder="Your Quiz Description"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                required=""
+              />
+            </div>
+            <div>
+              <label
+                for="question1"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Question 1</label
+              >
+              <select
+                type="type"
+                formControlName="type"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+              >
+                <option value="multiple-choice">Multiple Choice</option>
+                <option value="open-ended">Open Ended</option>
+                @if(quizForm.value.typeQuestion1 == "multiple-choice"){
+                <label
+                  for="multipleAnswerA1"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Answer 1</label
+                >
+
+                }
+                @if(quizForm.value.typeQuestion1 == "open-ended"){
+                  <label
+                    for="correctAnswer1"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >Correct Answer</label
+                  >
+                  
+                  }
+
+              </select>
+            </div>
+
+            <div>
+              <label
+                for="maxErrors"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Number of Errors</label
+              >
+              <input
+                type="number"
+                formControlName="maxErrors"
+                id="maxErrors"
+                placeholder="Maximum number of errors allowed"
+                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                required=""
+                min="1"
+              />
+              @if(submitted && quizForm.controls.maxErrors.errors){
+              @if(quizForm.controls.maxErrors.errors['required']){
+              <p class="form-error">Max number of errors is required.</p>
+              } @if(quizForm.controls.maxErrors.errors['min']) {
+              <p class="form-error">
+                Max number of errors needs to be at least 1.
+              </p>
+              } }
+            </div>
+            <button
+              type="submit"
+              class="w-full text-white bg-orange-700 hover:bg-orange-800 rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              Create Quiz
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

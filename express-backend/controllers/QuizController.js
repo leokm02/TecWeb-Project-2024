@@ -2,9 +2,10 @@ import { Quiz } from "../models/Database.js";
 
 export class QuizController {
   static async getQuizzesForCurrentUser(req) {
+    console.log(req.body);
     return Quiz.findAll({
       where: {
-        UserUserName: req.userName,
+        UserUserName: req.username,
       },
     });
   }
