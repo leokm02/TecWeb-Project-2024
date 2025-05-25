@@ -9,12 +9,6 @@ export function createModel(database) {
         autoIncrement: true,
         primaryKey: true,
       },
-      user: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        references: { model: "User", key: "userName" },
-        onDelete: "CASCADE",
-      },
       title: {
         type: DataTypes.STRING,
         allowNull: false,

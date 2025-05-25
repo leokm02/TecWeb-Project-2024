@@ -8,6 +8,8 @@ import { quizRouter } from "./routes/quizRouter.js";
 import { authRouter } from "./routes/authRouter.js";
 import { enforceAuthentication } from "./middleware/authorization.js";
 import { resetRouter } from "./routes/resetRouter.js";
+import { questionRouter } from "./routes/questionRouter.js";
+import { resultsRouter } from "./routes/resultsRouter.js";
 
 const app = express();
 const PORT = 3000;
@@ -42,5 +44,7 @@ app.use(authRouter);
 app.use(enforceAuthentication);
 app.use(quizRouter);
 app.use(resetRouter);
+app.use(questionRouter);
+app.use(resultsRouter);
 
 app.listen(PORT);

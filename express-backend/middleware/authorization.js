@@ -16,17 +16,3 @@ export function enforceAuthentication(req, res, next){
     }
   });
 }
-
-export async function ensureUsersModifyOnlyOwnQuizzes(req, res, next){
-  const user = req.username;
-  const quizId = req.params.id;
-  const userHasPermission = await AuthController.canUserModifyQuiz(user, quizId);
-  if(userHasPermission){
-    next();
-  } else {
-    next({
-      status: 403, 
-      message: "Forbidden! You do not have permissions to view or modify this resource"
-    });
-  }
-}

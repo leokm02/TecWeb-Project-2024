@@ -35,7 +35,7 @@
                 >Description</label
               >
               <input
-                type="description"
+                type="text"
                 formControlName="description"
                 id="description"
                 placeholder="Your Quiz Description"
@@ -50,30 +50,96 @@
                 >Question 1</label
               >
               <select
-                type="type"
-                formControlName="type"
+                type="text"
+                formControlName="typeQuestion1"
                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                (change)="onTypeChange($event)"
               >
+              <option value="" disabled selected>Select Question Type</option>
                 <option value="multiple-choice">Multiple Choice</option>
                 <option value="open-ended">Open Ended</option>
-                @if(quizForm.value.typeQuestion1 == "multiple-choice"){
+              </select>
+            </div>
+
+            <div>
+              @if(selectedType === "multiple-choice"){
+              <div>
                 <label
-                  for="multipleAnswerA1"
+                  for="answerA1"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >Answer 1</label
                 >
+                <input
+                  type="text"
+                  formControlName="answerA1"
+                  id="answerA1"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                  required=""
+                />
+              </div>
 
-                }
-                @if(quizForm.value.typeQuestion1 == "open-ended"){
-                  <label
-                    for="correctAnswer1"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >Correct Answer</label
-                  >
-                  
-                  }
+              <div>
+                <label
+                  for="answerB1"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Answer 2</label
+                >
+                <input
+                  type="text"
+                  formControlName="answerB1"
+                  id="answerB1"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                  required=""
+                />
+              </div>
 
-              </select>
+              <div>
+                <label
+                  for="answerC1"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Answer 3</label
+                >
+                <input
+                  type="text"
+                  formControlName="answerC1"
+                  id="answerC1"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                  required=""
+                />
+              </div>
+
+              <div>
+                <label
+                  for="answerD1"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Answer 4</label
+                >
+                <input
+                  type="text"
+                  formControlName="answerD1"
+                  id="answerD1"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                  required=""
+                />
+              </div>
+
+              } @if(selectedType === "open-ended"){
+              <div>
+                <label
+                  for="correctAnswerOpen1"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >Answer</label
+                >
+                <input
+                  type="text"
+                  formControlName="correctAnswerOpen1"
+                  id="correctAnswerOpen1"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5"
+                  required=""
+                />
+              </div>
+
+              }
             </div>
 
             <div>
@@ -97,6 +163,10 @@
               } @if(quizForm.controls.maxErrors.errors['min']) {
               <p class="form-error">
                 Max number of errors needs to be at least 1.
+              </p>
+              } @if(quizForm.controls.maxErrors.errors['max']) {
+              <p class="form-error">
+                Max number of errors can't be higher than 3.
               </p>
               } }
             </div>

@@ -19,10 +19,13 @@ import { QuestionItem } from '../_services/rest-backend/question-item.type';
   styleUrl: './create.component.scss',
 })
 export class CreateComponent {
+
   toastr = inject(ToastrService);
   router = inject(Router);
   restService = inject(RestBackendService);
   submitted = false;
+
+  selectedType: string = "";
 
   quizForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -30,17 +33,46 @@ export class CreateComponent {
     maxErrors: new FormControl(1, [Validators.required, Validators.min(1), Validators.max(3)]),
     question1: new FormControl('', [Validators.required]),
     typeQuestion1: new FormControl('', [Validators.required]),
-    correctAnswer1: new FormControl(''),
-    multipleAnswerA1: new FormControl(''),
-    multipleAnswerB1: new FormControl(''),
-    multipleAnswerC1: new FormControl(''),
-    multipleAnswerD1: new FormControl(''),
-    correctMultipleAnswer1: new FormControl(1, [Validators.min(1), Validators.max(3)]),
+    correctAnswerOpen1: new FormControl(''),
+    answerA1: new FormControl(''),
+    answerB1: new FormControl(''),
+    answerC1: new FormControl(''),
+    answerD1: new FormControl(''),
+    correctAnswerMultiple1: new FormControl(1, [Validators.min(1), Validators.max(4)]),
   });
 
+  onTypeChange($event: Event) {
+    const target = $event.target as HTMLSelectElement;
+    this.selectedType = target.value;
+
+    if (this.selectedType === 'open-ended') {
+      this.quizForm.get('correctAnswerOpen1')?.setValidators([Validators.required]);
+      this.quizForm.get('answerA1')?.clearValidators();
+      this.quizForm.get('answerB1')?.clearValidators();
+      this.quizForm.get('answerC1')?.clearValidators();
+      this.quizForm.get('answerD1')?.clearValidators();
+      this.quizForm.get('correctAnswerMultiple1')?.clearValidators();
+    } else if (this.selectedType === 'multiple-choice') {
+      this.quizForm.get('correctAnswerOpen1')?.clearValidators();
+      this.quizForm.get('answerA1')?.setValidators([Validators.required]);
+      this.quizForm.get('answerB1')?.setValidators([Validators.required]);
+      this.quizForm.get('answerC1')?.setValidators([Validators.required]);
+      this.quizForm.get('answerD1')?.setValidators([Validators.required]);
+      this.quizForm.get('correctAnswerMultiple1')?.setValidators([Validators.required, Validators.min(1), Validators.max(4)]);
+    }
+  
+    this.quizForm.get('correctAnswerOpen1')?.updateValueAndValidity();
+    this.quizForm.get('answerA1')?.updateValueAndValidity();
+    this.quizForm.get('answerB1')?.updateValueAndValidity();
+    this.quizForm.get('answerC1')?.updateValueAndValidity();
+    this.quizForm.get('answerD1')?.updateValueAndValidity();
+    this.quizForm.get('correctAnswerMultiple1')?.updateValueAndValidity();
+  }
+
   handleCreate() {
-    console.log('Quiz Created');
     this.submitted = true;
+    console.log(this.quizForm.value);
+    console.log(this.quizForm.valid);
     if (this.quizForm.invalid) {
       this.toastr.error(
         'The data you provided is invalid!',
@@ -56,15 +88,13 @@ export class CreateComponent {
             {
               question: this.quizForm.value.question1 as string,
               type: this.quizForm.value.typeQuestion1 as "open-ended" | "multiple-choice",
-              correctAnswer: this.quizForm.value.correctAnswer1 as string,
-              multipleAnswers: {
-                answer1: this.quizForm.value.multipleAnswerA1 as string,
-                answer2: this.quizForm.value.multipleAnswerB1 as string,
-                answer3: this.quizForm.value.multipleAnswerC1 as string,
-                answer4: this.quizForm.value.multipleAnswerD1 as string,
-                correctAnswer: this.quizForm.value.correctMultipleAnswer1 as 1 | 2 | 3 | 4,
-              },
-            }
+              correctAnswerOpen: this.quizForm.value.correctAnswerOpen1 as string,
+              answer1: this.quizForm.value.answerA1 as string,
+              answer2: this.quizForm.value.answerB1 as string,
+              answer3: this.quizForm.value.answerC1 as string,
+              answer4: this.quizForm.value.answerD1 as string,
+              correctAnswerMultiple: this.quizForm.value.correctAnswerMultiple1 as 1 | 2 | 3 | 4,
+            },
           ]
         })
         .subscribe({
@@ -83,5 +113,6 @@ export class CreateComponent {
           },
         });
     }
+    console.log('Quiz Created');
   }
 }

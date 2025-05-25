@@ -17,8 +17,32 @@ export function createModel(database) {
         type: DataTypes.ENUM("multiple", "open"),
         allowNull: false,
       },
-      correctAnswer: {
+      correctAnswerOpen: {
         type: DataTypes.STRING,
+      },
+      answer1: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      answer2: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      answer3: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      answer4: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      correctAnswerMultiple: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          min: 1,
+          max: 4,
+        },
       },
     },
     {}

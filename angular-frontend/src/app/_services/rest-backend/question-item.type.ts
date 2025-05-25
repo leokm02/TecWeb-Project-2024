@@ -1,16 +1,14 @@
 export interface QuestionItem {
-  id?: number; 
-  quizId?: number; 
-  question: string; 
-  type: "open-ended" | "multiple-choice";
-  createdAt?: Date; 
+  id?: number;
+  quizId?: number;
+  question: string;
+  type: 'open-ended' | 'multiple-choice';
+  correctAnswerOpen: string;
+  answer1: string;
+  answer2: string;
+  answer3: string;
+  answer4: string;
+  correctAnswerMultiple: 1 | 2 | 3 | 4;
+  createdAt?: Date;
   updatedAt?: Date;
-  multipleAnswers?: { //Nel caso di multiple-choice
-    answer1: string;
-    answer2: string;
-    answer3: string;
-    answer4: string;
-    correctAnswer: 1 | 2 | 3 | 4;
-  }
-  correctAnswer?: string; //Nel caso di open-ended
 }

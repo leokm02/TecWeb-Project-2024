@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { QuizItem } from './quiz-item.type';
 import { AuthRequest } from './auth-request.type';
+import { ResultsItem } from './results-item.type';
+import { QuestionItem } from './question-item.type';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +38,26 @@ export class RestBackendService {
   getQuizById(id: number) {
     const url = `${this.url}/my-quizzes/${id}`; 
     return this.http.get<QuizItem>(url, this.httpOptions);
+  }
+
+  getQuestions(quizId: number) {
+    const url = `${this.url}/my-quizzes/${quizId}/questions`; 
+    return this.http.get<QuestionItem[]>(url, this.httpOptions);
+  }
+
+  getQuestionsById(quizId: number, id: number) {
+    const url = `${this.url}/my-quizzes/${quizId}/questions/${id}`; 
+    return this.http.get<QuestionItem>(url, this.httpOptions);
+  }
+
+  getResults(quizId: number) {
+    const url = `${this.url}/my-quizzes/${quizId}/results`; 
+    return this.http.get<ResultsItem[]>(url, this.httpOptions);
+  }
+
+  getResultsById(quizId: number, id: number) {
+    const url = `${this.url}/my-quizzes/${quizId}/results/${id}`;
+    return this.http.get<ResultsItem>(url, this.httpOptions);
   }
 
   createQuiz(quiz: QuizItem){

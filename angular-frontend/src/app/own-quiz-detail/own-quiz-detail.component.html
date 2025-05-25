@@ -1,1 +1,54 @@
-<p>own-quiz-detail works!</p>
+<div>
+  <div class="container mx-auto py-8">
+    <h1 class="text-5xl font-bold my-4 text-white">
+      Quiz - "{{ this.quizItem.title }}"
+    </h1>
+    <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
+      <div class="col-span-4 sm:col-span-8">
+        <div class="bg-white shadow rounded-lg p-6">
+          <h2 class="text-2xl font-bold my-4 text-gray-900">Description</h2>
+          <p class="text-gray-700 mb-4">
+            {{ this.quizItem.description }}
+          </p>
+
+          <hr class="my-6 border-t border-gray-300" />
+
+          <h2 class="text-2xl font-bold my-4 text-gray-900">Questions</h2>
+
+          <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
+            <div class="col-span-4 sm:col-span-8">
+              <div class="bg-white shadow rounded-lg p-6">
+                <ul
+                  class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg"
+                >
+                  @for(item of questions; track item.id){
+                  <app-question-item [questionItem]="item" />
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-6 border-t border-gray-300" />
+
+          <h2 class="text-2xl font-bold my-4 text-gray-900">Results</h2>
+
+          <div class="grid grid-cols-4 sm:grid-cols-12 gap-6 px-4">
+            <div class="col-span-4 sm:col-span-8">
+              <div class="bg-white shadow rounded-lg p-6">
+                <ul
+                  class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg"
+                >
+                  @for(item of results; track item.id){
+                  <app-result-item [resultsItem]="item" />
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

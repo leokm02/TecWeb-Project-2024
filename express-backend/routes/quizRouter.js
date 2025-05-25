@@ -1,6 +1,5 @@
 import express from "express";
 import { QuizController } from "../controllers/QuizController.js";
-import { ensureUsersModifyOnlyOwnQuizzes } from "../middleware/authorization.js";
 
 export const quizRouter = express.Router();
 
@@ -12,15 +11,7 @@ quizRouter.get("/my-quizzes", (req, res, next) => {
   });
 });
 
-quizRouter.post("/my-quizzes", (req, res, next) => {
-  QuizController.saveQuiz(req).then( result => {
-    res.json(result);
-  }).catch(err => {
-    next(err);
-  });
-});
-
-quizRouter.get("/my-quizzes/:id", ensureUsersModifyOnlyOwnQuizzes, (req, res, next) => {
+quizRouter.get("/my-quizzes/:id", (req, res, next) => {
   QuizController.findById(req).then( (item) => {
     if(item)
       res.json(item);
@@ -31,7 +22,15 @@ quizRouter.get("/my-quizzes/:id", ensureUsersModifyOnlyOwnQuizzes, (req, res, ne
   })
 });
 
-quizRouter.delete("/my-quizzes/:id", ensureUsersModifyOnlyOwnQuizzes, (req, res, next) => {
+quizRouter.post("/create", (req, res, next) => {
+  QuizController.saveQuiz(req).then( result => {
+    res.json(result);
+  }).catch(err => {
+    next(err);
+  });
+});
+
+quizRouter.delete("/my-quizzes/:id", (req, res, next) => {
   QuizController.delete(req).then( (item) => {
     if(item)
       res.json(item);
@@ -42,8 +41,7 @@ quizRouter.delete("/my-quizzes/:id", ensureUsersModifyOnlyOwnQuizzes, (req, res,
   })
 });
 
-
-quizRouter.put("/my-quizzes/:id", ensureUsersModifyOnlyOwnQuizzes, (req, res, next) => {
+quizRouter.put("/my-quizzes/:id", (req, res, next) => {
   QuizController.update(req.params.id, req.body).then( (item) => {
     if(item)
       res.json(item);
